@@ -1,33 +1,25 @@
-# 과제 목록과 로드맵
+# 과제 목록
 
-웹 L1 build/fix는 **ready (v1.0.0)**, 나머지는 **planned**입니다. [실행 가이드](quickstart.md)를 참고하세요. 아래 버그 원인은 제작자를 위한 기획이며 참가자에게는 증상만 제공합니다.
+아래 L1·L2 8개 과제는 v1.0.0 ready입니다. 공통 평가의 시작점·완성 코드 동작을 검증했으며, 실제 에이전트 성능 측정은 아직 없습니다.
 
-| 도메인 | 레벨 | build | fix |
-|---|---|---|---|
-| web | L1 | Todo: 추가·완료·삭제·필터·로컬 저장 | 필터된 목록에서 삭제 시 다른 항목이 삭제됨 |
-| web | L2 | 지출 기록장: 편집·월별 합계·분류 필터 | 월 경계 집계 오류, 편집 후 합계 갱신 누락 |
-| mobile | L1 | 습관 체크: 관리·오늘 완료·로컬 저장 | 앱 재실행 후 완료 상태 복원 오류 |
-| mobile | L2 | 운동 기록: 목록·상세·편집·날짜별 합계 | 화면 간 데이터 불일치, 합계 오류 |
+| 도메인 | 레벨 | 유형 | 과제 ID | 범위 |
+|---|---|---|---|---|
+| web | L1 | build | web-build-l1-todo | Todo 기본 로직 |
+| web | L1 | fix | web-fix-l1-todo-delete | 필터 상태의 ID 삭제 |
+| web | L2 | build | web-build-l2-expense-tracker | 지출 CRUD·월/분류·합계 |
+| web | L2 | fix | web-fix-l2-expense-summary | 연도 필터·수정 후 금액 |
+| mobile | L1 | build | mobile-build-l1-habit-checker | 날짜별 습관 체크 |
+| mobile | L1 | fix | mobile-fix-l1-habit-restore | 재실행 후 완료 기록 복원 |
+| mobile | L2 | build | mobile-build-l2-workout-log | 목록·상세·편집·운동량 |
+| mobile | L2 | fix | mobile-fix-l2-workout-summary | 수정 반영·운동량 집계 |
 
-## 후속 명세
+웹은 HTML/CSS/JavaScript ES modules + Node 22/Chromium, 모바일은 Java 17/Android native Views + API 35로 고정합니다. 각 task.json에서 환경과 예산을 확인합니다.
 
-| 레벨 | web | mobile |
-|---|---|---|
-| L3 | 인증·사용자별 북마크 보관함 | 로컬 DB·사진 첨부 오프라인 메모 |
-| L4 | 멤버십·권한이 있는 소규모 팀 이슈 보드 | 명시적 충돌 규칙이 있는 개인 체크리스트 동기화 |
+- [웹 실행 가이드](quickstart.md)
+- [Android 실행 가이드](android.md)
+- [L1~L4 규모와 후속 기획](levels.md)
+- [평가 도구 검증 결과](validation.md)
 
-## 제작 순서
+build는 제공 UI/환경에서 핵심 로직을 구현하는 과제입니다. fix의 정답·원인은 참가자에게 제공하지 않으며, spec.md의 증상만 제공합니다. 평가자 저장소에는 reference가 있으므로 에이전트의 접근을 제한하세요.
 
-1. 웹 L1 build/fix의 명세, 고정 환경, 평가 테스트 제작
-2. 실제 실행으로 재현성·측정 양식 검증
-3. 웹 L2와 모바일 L1/L2 추가
-4. L3/L4 명세 확정 및 제작
-
-## 확정할 항목
-
-- L1 웹: HTML/CSS/JavaScript ES modules 확정. 상위 레벨 스택은 추후 확정
-- 모바일 기술 스택과 평가 OS/기기 이미지
-- 과제별 시간 예산·명령 권한·네트워크 조건
-- 관측 가능한 에이전트별 사용량 수집 방식
-
-각 과제에는 고유 ID·명세 버전·status를 둡니다. 새 도메인은 같은 형식으로 추가합니다. extend/refactor 유형은 추후 검토합니다.
+L3·L4, iOS, 게임·CLI·자동화는 planned입니다. ready로 표시하기 전 명세·고정 환경·starter/reference 평가 검증을 완료합니다.

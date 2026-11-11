@@ -1,0 +1,12 @@
+{
+  "id": "web-build-l2-expense-tracker",
+  "version": "1.0.0",
+  "domain": "web",
+  "type": "build",
+  "level": 2,
+  "status": "ready",
+  "suite": "expense",
+  "node": "22.x",
+  "timeBudgetMinutes": 60,
+  "maxRepairRounds": 2
+}

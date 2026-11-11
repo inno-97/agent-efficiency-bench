@@ -1,0 +1,16 @@
+{
+  "id": "mobile-fix-l1-habit-restore",
+  "version": "1.0.0",
+  "domain": "mobile",
+  "type": "fix",
+  "level": 1,
+  "status": "ready",
+  "suite": "habit",
+  "platform": "android",
+  "api": 35,
+  "java": 17,
+  "gradle": "8.13",
+  "agp": "8.9.1",
+  "timeBudgetMinutes": 30,
+  "maxRepairRounds": 2
+}

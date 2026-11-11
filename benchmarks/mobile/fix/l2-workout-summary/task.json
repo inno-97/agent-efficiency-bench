@@ -1,0 +1,16 @@
+{
+  "id": "mobile-fix-l2-workout-summary",
+  "version": "1.0.0",
+  "domain": "mobile",
+  "type": "fix",
+  "level": 2,
+  "status": "ready",
+  "suite": "workout",
+  "platform": "android",
+  "api": 35,
+  "java": 17,
+  "gradle": "8.13",
+  "agp": "8.9.1",
+  "timeBudgetMinutes": 60,
+  "maxRepairRounds": 2
+}

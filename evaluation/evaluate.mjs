@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
-import {writeFile} from 'node:fs/promises';
+import {writeFile,readFile} from 'node:fs/promises';
+import {evaluateExpense} from './expense.mjs';
 import {serve} from '../tools/serve.mjs';
 
-export async function evaluate(candidate){
+export async function evaluateTodo(candidate){
  const root=resolve(candidate), results=[];
  const test=async(name,fn)=>{try{await fn();results.push({name,passed:true});}catch(e){results.push({name,passed:false,error:e.message});}};
  // Import errors are infrastructure/contract errors and must not look like a scored run.
@@ -21,7 +22,8 @@ export async function evaluate(candidate){
  await test('logic/storage-validation',()=>{const s=storage();s.setItem('',JSON.stringify([null,{}, {id:1,title:'a',completed:false},{id:'x',title:' ',completed:false},{id:'x',title:'x'.repeat(121),completed:false},{id:'x',title:'a',completed:'false'},...fixture()]));assert.deepEqual(m.loadTodos(s),fixture());});
  const {chromium}=await import('playwright');
  const browser=await chromium.launch({headless:true});
- const app=await serve(root);
+ let app;
+ try{app=await serve(root);}catch(error){await browser.close();throw error;}
  const ui=async(name,fn)=>test(name,async()=>{const context=await browser.newContext();const page=await context.newPage();page.setDefaultTimeout(5000);try{await page.goto(app.url);await fn(page);}finally{await context.close();}});
  const add=async(page,title)=>{await page.locator('#title').fill(title);await page.locator('#add-form button').click();};
  const titles=page=>page.locator('#todos li span').allTextContents();
@@ -32,6 +34,14 @@ export async function evaluate(candidate){
  await ui('ui/text-and-empty-input',async page=>{await add(page,'   ');assert.deepEqual(await titles(page),[]);assert.ok(await page.locator('#error').innerText());const payload='<img src=x onerror="window.__executed=1">';await add(page,payload);assert.deepEqual(await titles(page),[payload]);assert.equal(await page.locator('#todos img').count(),0);assert.equal(await page.evaluate(()=>window.__executed),undefined);});
  }finally{await browser.close();await app.close();}
  return {candidate:root,total:results.length,passed:results.filter(r=>r.passed).length,results};
+}
+export async function evaluate(candidate){
+ let suite='todo';
+ try {const meta=JSON.parse(await readFile(resolve(candidate,'task.json'),'utf8'));if(meta.domain==='mobile')throw Error('Use npm run evaluate:android for mobile tasks');suite=meta.suite||'todo';}
+ catch(error){if(error.code!=='ENOENT')throw error;}
+ if(suite==='expense')return evaluateExpense(candidate);
+ if(suite!=='todo')throw Error('Unknown evaluation suite: '+suite);
+ return evaluateTodo(candidate);
 }
 if(process.argv[1]===new URL(import.meta.url).pathname){
  try{

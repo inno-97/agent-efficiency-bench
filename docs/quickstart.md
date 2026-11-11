@@ -1,6 +1,8 @@
-# 실행과 테스트: 웹 L1 Todo
+# 실행과 테스트: 웹 L1·L2
 
-현재 실행 가능한 과제는 `web/build/l1-todo`, `web/fix/l1-todo-delete` 두 개입니다. 모바일/L2는 준비 전입니다.
+웹 L1 Todo와 L2 지출 기록장 build/fix 총 네 과제를 제공합니다. 모바일은 [Android 가이드](android.md)를 참고하세요.
+
+빠른 준비: `npm run prepare:task -- web-build-l2-expense-tracker ../expense-run-01`. 다른 ID는 [과제 목록](tasks.md)에서 선택합니다. 명령은 starter와 참가자용 문서만 새 폴더로 복사합니다.
 
 ## 1. 평가자 환경 준비
 
@@ -16,7 +18,7 @@ npx playwright install chromium --only-shell
 
 Linux는 Ubuntu 24.04를 기준으로 합니다. 시스템 라이브러리가 부족하면 `npx playwright install --with-deps chromium --only-shell`을 사용합니다. 설치에는 네트워크가 필요하지만 Todo 실행과 평가는 로컬에서 진행됩니다. OS·Node·브라우저 버전을 결과에 기록하세요.
 
-## 2. 독립 작업 폴더 만들기
+## 2. 독립 작업 폴더 만들기 (Todo 예시)
 
 아래 명령은 저장소 루트에서 실행합니다. 새 실행마다 다른 빈 폴더를 사용하세요. build/fix 중 하나를 선택합니다.
 
@@ -46,7 +48,7 @@ node tools/serve.mjs ../todo-build-run-01 4173
 
 ## 4. 에이전트에게 맡기기
 
-별도 터미널에서 WORK 폴더를 열고 원하는 에이전트를 실행하세요. prompt.md 내용을 첫 요청으로 전달합니다. 동일 비교에서는 모델 외 조건, 시간 예산(기본 전체 경과 30분), 권한, 네트워크, 규칙·스킬을 맞춥니다.
+별도 터미널에서 WORK 폴더를 열고 원하는 에이전트를 실행하세요. prompt.md 내용을 첫 요청으로 전달합니다. 동일 비교에서는 모델 외 조건, 시간 예산(기본 L1 전체 경과 30분, L2 60분), 권한, 네트워크, 규칙·스킬을 맞춥니다.
 
 - 실행 전에 시간과 도구가 제공하는 사용량을 기록합니다.
 - 완료 보고를 받으면 최초 제출 커밋을 보존합니다.
@@ -62,7 +64,7 @@ node tools/serve.mjs ../todo-build-run-01 4173
 npm run evaluate -- ../todo-build-run-01 ../todo-build-run-01-report.json
 ```
 
-8개 로직 검사와 4개 Chromium UI 검사를 수행합니다. 각 UI 검사는 새 브라우저 context로 localStorage를 격리합니다. 결과 JSON의 total/passed와 각 실패 내역을 확인하세요.
+각 과제의 task.json으로 suite를 선택해 8개 로직 검사와 4개 Chromium UI 검사를 수행합니다. L2는 expense suite입니다. task.json을 함께 복사해야 합니다. 각 UI 검사는 새 브라우저 context로 localStorage를 격리합니다. 결과 JSON의 total/passed와 각 실패 내역을 확인하세요.
 
 | 종료 코드 | 의미 |
 |---|---|
@@ -88,7 +90,7 @@ fix는 task ID를 `web-fix-l1-todo-delete`로 바꿉니다. 양식에 모델·�
 npm run verify
 ```
 
-두 starter의 실패와 reference 구현의 12/12 통과를 확인합니다. fix starter는 삭제 관련 검사 3개만 실패해야 합니다. 이 명령은 임시 폴더만 수정하며 starter는 변경하지 않습니다.
+웹 네 starter의 실패와 reference 구현의 12/12 통과를 확인합니다. fix starter는 삭제 관련 검사 3개만 실패해야 합니다. 이 명령은 임시 폴더만 수정하며 starter는 변경하지 않습니다.
 
 ## 자주 발생하는 문제
 

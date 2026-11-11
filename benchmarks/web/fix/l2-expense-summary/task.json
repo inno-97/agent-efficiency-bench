@@ -1,0 +1,12 @@
+{
+  "id": "web-fix-l2-expense-summary",
+  "version": "1.0.0",
+  "domain": "web",
+  "type": "fix",
+  "level": 2,
+  "status": "ready",
+  "suite": "expense",
+  "node": "22.x",
+  "timeBudgetMinutes": 60,
+  "maxRepairRounds": 2
+}

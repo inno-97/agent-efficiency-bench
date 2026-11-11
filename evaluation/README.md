@@ -1,5 +1,8 @@
 # Evaluation
 
-`npm run evaluate -- <candidate-directory> [report.json]`: 로직 8개 + Chromium UI 4개. `npm run verify`: starter 실패/reference 통과 자체 검증.
+- 웹: `npm run evaluate -- <candidate-directory> [report.json]`, `npm run verify`
+- Android: `npm run evaluate:android -- <candidate-directory> <emulator-serial> [report.json]`, `npm run verify:android -- <emulator-serial>`
 
-평가자는 이 디렉터리를 에이전트 작업 공간 밖에 보관합니다. fixture는 평가 도구 검증용 정답이므로 참가자에게 제공하지 않습니다. [가이드](../docs/quickstart.md).
+각 과제는 로직/모델 8개 + UI 4개. Android는 별도 프로세스 재실행 복원도 확인합니다. [웹 가이드](../docs/quickstart.md), [Android 가이드](../docs/android.md).
+
+평가 코드는 에이전트 작업 공간 밖에 보관합니다. fixture는 평가 도구 검증용 정답이므로 참가자에게 제공하지 않습니다. 후보 코드 실행은 보안 샌드박스가 아니므로 전용 환경에서 실행하세요.
