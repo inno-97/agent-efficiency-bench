@@ -1,0 +1,13 @@
+{
+  "id": "web-build-l3-bookmark-library",
+  "version": "1.0.0",
+  "domain": "web",
+  "type": "build",
+  "level": 3,
+  "status": "draft",
+  "suite": "bookmarks",
+  "track": "typescript-next-postgres",
+  "node": "22.x",
+  "timeBudgetMinutes": 120,
+  "maxRepairRounds": 2
+}

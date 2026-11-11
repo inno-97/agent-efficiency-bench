@@ -1,0 +1,13 @@
+{
+  "id": "web-fix-l3-bookmark-library",
+  "version": "1.0.0",
+  "domain": "web",
+  "type": "fix",
+  "level": 3,
+  "status": "draft",
+  "suite": "bookmarks",
+  "track": "typescript-next-postgres",
+  "node": "22.x",
+  "timeBudgetMinutes": 120,
+  "maxRepairRounds": 2
+}

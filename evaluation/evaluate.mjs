@@ -1,3 +1,4 @@
+import {evaluateWorkspace} from './workspace.mjs';
 import assert from 'node:assert/strict';
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -39,6 +40,7 @@ export async function evaluate(candidate){
  let suite='todo';
  try {const meta=JSON.parse(await readFile(resolve(candidate,'task.json'),'utf8'));if(meta.domain==='mobile')throw Error('Use npm run evaluate:android for mobile tasks');suite=meta.suite||'todo';}
  catch(error){if(error.code!=='ENOENT')throw error;}
+ if(['bookmarks','issues'].includes(suite))return evaluateWorkspace(candidate);
  if(suite==='expense')return evaluateExpense(candidate);
  if(suite!=='todo')throw Error('Unknown evaluation suite: '+suite);
  return evaluateTodo(candidate);

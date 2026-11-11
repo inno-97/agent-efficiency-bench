@@ -1,0 +1,77 @@
+name: Verify L3 L4 benchmark tasks
+on:
+  push:
+    branches: [main]
+    paths: ['benchmarks/**', 'evaluation/**', 'tools/**', 'package*.json', 'compose.yaml', '.github/workflows/advanced.yml']
+  pull_request:
+    paths: ['benchmarks/**', 'evaluation/**', 'tools/**', 'package*.json', 'compose.yaml', '.github/workflows/advanced.yml']
+permissions:
+  contents: read
+jobs:
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            preparation/web/package-lock.json
+      - run: npm ci
+      - run: npm ci --prefix preparation/web
+      - run: npx playwright install --with-deps chromium
+      - run: npm run env:init
+      - run: npm run db:up
+      - run: npm run verify:web:advanced -- "${{ runner.temp }}/web-advanced.json"
+      - run: npm run verify:sync
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: web-advanced-validation
+          path: ${{ runner.temp }}/web-advanced.json
+      - run: npm run db:down
+        if: always()
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: preparation/web/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: npm ci --prefix preparation/web
+      - run: npm run env:init
+      - run: npm run db:up
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          emulator-port: 5554
+          ram-size: 1536M
+          cores: 2
+          disable-animations: true
+          script: bash tools/verify-two-emulators.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: android-advanced-validation
+          path: ${{ runner.temp }}/mobile-advanced.json
+      - run: npm run db:down
+        if: always()

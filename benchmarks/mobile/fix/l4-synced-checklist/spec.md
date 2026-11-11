@@ -1,0 +1,12 @@
+# Android contract v1.0.0
+
+Constrained build/fix: keep supplied Kotlin/Compose UI and repository API. JDK17, API35, Room database; no in-memory replacement. Repository methods execute on IO coroutines. Tests are external and may reopen databases or launch another process. No broad storage permission. Package bench.app.
+
+## Personal offline checklist sync
+- SyncRepository(context,name="sync.db",baseUrl="http://10.0.2.2:3418/"): login(email,password), signedIn(), save(id?,title,completed=false), delete(id), list(), sync():Boolean, enqueue(), close().
+- Seed accounts alice/bob/carol@example.test password benchmark-password. One account per local database; reject switching identity; expired sessions allow same-account relogin. Persist opaque cookie in SharedPreferences. No team sharing.
+- Entry(id,title,completed,version,deleted,dirty,operationId,conflict). New UUID version0. Title trimmed1..120. Edit retains ID/base version, marks dirty with NEW UUID operationId and clears prior conflict. Delete persists dirty tombstone; list omits deleted. Unknown edit throws; delete missing no-op. Persist across process restart/offline.
+- sync serializes with local edits. Push persisted pending entries before pull. Each operation retains the same operationId across retries/restarts. Send id,baseVersion,title,completed,deleted to POST /api/sync. Only mark clean on acknowledged200 or conflict409 with server item. Network/401/5xx preserve remaining pending operations; return false.
+- Conflict policy: server wins. A409 response includes current server item; store it clean and set conflict=true. Pull must retain conflict marker until next user edit. Deleted server items remain tombstones locally so stale clients cannot resurrect them. Success200 assigns incremented server version. Pull GET /api/items includes own tombstones and updates clean rows. Return true only after push and pull complete.
+- enqueue uses WorkManager network-connected constraint, unique work, exponential retry; worker retries failed sync. UI login/list/edit/delete/completed + pending/conflict/retry status and manual sync. No push/cloud/realtime.
+- Server scaffold is evaluator-owned, not an agent task: /api/login and /api/items /api/sync. Version compare-and-swap, tombstones, ownership and idempotent operationId are fixed. Replaying same operation returns original response without version increment; key reused with different payload=409 without item (retain pending). Read docs/advanced.md before timing to start local server. Do not implement/modify server.

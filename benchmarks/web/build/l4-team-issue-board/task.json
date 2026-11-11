@@ -1,0 +1,13 @@
+{
+  "id": "web-build-l4-team-issue-board",
+  "version": "1.0.0",
+  "domain": "web",
+  "type": "build",
+  "level": 4,
+  "status": "draft",
+  "suite": "issues",
+  "track": "typescript-next-postgres",
+  "node": "22.x",
+  "timeBudgetMinutes": 180,
+  "maxRepairRounds": 2
+}

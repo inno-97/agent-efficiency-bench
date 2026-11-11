@@ -16,7 +16,12 @@
     "db:down": "node tools/environment.mjs down",
     "db:check": "node tools/environment.mjs check",
     "env:check": "node tools/environment-check.mjs",
-    "env:android": "node tools/android-preparation.mjs"
+    "env:android": "node tools/android-preparation.mjs",
+    "setup:web": "node tools/setup-workspace.mjs",
+    "sync:server": "node tools/sync-server.mjs",
+    "verify:web:advanced": "node evaluation/verify-workspace.mjs",
+    "verify:android:advanced": "node evaluation/android/verify-advanced.mjs",
+    "verify:sync": "node evaluation/verify-sync-server.mjs"
   },
   "devDependencies": {
     "playwright": "1.56.1"

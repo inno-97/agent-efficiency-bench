@@ -1,0 +1,14 @@
+{
+  "id": "mobile-fix-l4-synced-checklist",
+  "version": "1.0.0",
+  "domain": "mobile",
+  "type": "fix",
+  "level": 4,
+  "status": "draft",
+  "suite": "sync",
+  "track": "kotlin-compose-room",
+  "java": "17",
+  "androidApi": 35,
+  "timeBudgetMinutes": 180,
+  "maxRepairRounds": 2
+}

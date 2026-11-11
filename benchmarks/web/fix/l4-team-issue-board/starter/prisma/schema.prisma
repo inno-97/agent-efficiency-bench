@@ -1,0 +1,50 @@
+generator client {
+ provider = "prisma-client-js"
+}
+datasource db {
+ provider = "postgresql"
+}
+model User {
+ id String @id
+ email String @unique
+ password String
+}
+model Session {
+ token String @id
+ userId String
+ expiresAt DateTime
+}
+model Bookmark {
+ id String @id @default(uuid())
+ userId String
+ title String
+ url String
+ tags String[]
+ createdAt DateTime @default(now())
+}
+model Project {
+ id String @id
+ title String
+ ownerId String
+}
+model Member {
+ projectId String
+ userId String
+ @@id([projectId,userId])
+}
+model Issue {
+ id String @id @default(uuid())
+ projectId String
+ authorId String
+ title String
+ body String
+ status String @default("open")
+ createdAt DateTime @default(now())
+}
+model Comment {
+ id String @id @default(uuid())
+ issueId String
+ authorId String
+ body String
+ createdAt DateTime @default(now())
+}

@@ -1,3 +1,4 @@
+import {evaluateAdvanced} from './advanced.mjs';
 import {cp,mkdtemp,mkdir,readFile,writeFile,rm,copyFile} from 'node:fs/promises';
 import {resolve,join,basename} from 'node:path';
 import {tmpdir} from 'node:os';
@@ -12,6 +13,7 @@ export async function evaluateAndroid(candidate,serial){
  const device=(...args)=>run(adb,['-s',serial,...args],{timeout:180000});
  if(device('shell','getprop','ro.build.version.sdk').trim()!=='35')throw Error('Evaluation requires Android API 35 emulator.');
  const root=resolve(candidate),meta=JSON.parse(await readFile(join(root,'task.json'),'utf8'));
+ if(meta.domain==='mobile'&&['notes','sync'].includes(meta.suite))return evaluateAdvanced(candidate,serial);
  if(meta.domain!=='mobile'||!['habit','workout'].includes(meta.suite))throw Error('Unknown mobile suite');
  const temp=await mkdtemp(join(tmpdir(),'agent-bench-android-'));
  try{
