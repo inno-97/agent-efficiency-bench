@@ -1,0 +1,13 @@
+{
+  "id": "web-fix-l1-todo-delete",
+  "version": "1.0.0",
+  "domain": "web",
+  "type": "fix",
+  "level": 1,
+  "status": "ready",
+  "stack": "HTML/CSS/JavaScript ES modules",
+  "node": "22.x",
+  "maxRepairRounds": 2,
+  "evaluation": "npm run evaluate -- <candidate-directory>",
+  "timeBudgetMinutes": 30
+}

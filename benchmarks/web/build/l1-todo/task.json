@@ -1,0 +1,13 @@
+{
+  "id": "web-build-l1-todo",
+  "version": "1.0.0",
+  "domain": "web",
+  "type": "build",
+  "level": 1,
+  "status": "ready",
+  "stack": "HTML/CSS/JavaScript ES modules",
+  "node": "22.x",
+  "maxRepairRounds": 2,
+  "evaluation": "npm run evaluate -- <candidate-directory>",
+  "timeBudgetMinutes": 30
+}

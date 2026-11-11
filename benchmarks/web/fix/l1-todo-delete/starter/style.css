@@ -1,0 +1,1 @@
+body{font:16px system-ui;max-width:640px;margin:48px auto;padding:0 16px}button,input,select{font:inherit;padding:8px}li{display:flex;gap:12px;align-items:center;padding:10px 0}li span{flex:1}header,nav{margin:16px 0}input[type=text]{width:65%}
