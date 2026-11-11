@@ -18,6 +18,7 @@
 - [웹 실행 가이드](quickstart.md)
 - [Android 실행 가이드](android.md)
 - [L1~L4 규모와 후속 기획](levels.md)
+- [L3·L4 확정 기술 스택](stack.md)
 - [평가 도구 검증 결과](validation.md)
 
 build는 제공 UI/환경에서 핵심 로직을 구현하는 과제입니다. fix의 정답·원인은 참가자에게 제공하지 않으며, spec.md의 증상만 제공합니다. 평가자 저장소에는 reference가 있으므로 에이전트의 접근을 제한하세요.
