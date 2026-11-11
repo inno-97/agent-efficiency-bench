@@ -45,6 +45,8 @@ TypeScript + Next.js Route Handlers + Prisma + PostgreSQL을 사용한다. 웹 �
 
 서버·DB 기동 scaffolding과 seed는 제공하고 동기화 규칙·요청 식별자·버전 충돌·삭제 및 재시도 계약은 구현 전 명세에서 고정한다. 외부 클라우드 없이 에뮬레이터 두 대와 로컬 서버로 평가한다.
 
+설치·빌드 호환성을 확인한 기준 조합은 [환경 준비](preparation.md)에 기록합니다. 실제 과제는 아직 구현 전입니다.
+
 ## 버전과 비교 정책
 
 - 이 문서는 기술 계열 선택이다. 실제 패키지·SDK·Gradle·컨테이너 이미지 버전은 각 starter 제작 시 호환성·보안·평가 통과를 확인한 뒤 정확한 버전/lockfile로 고정한다.

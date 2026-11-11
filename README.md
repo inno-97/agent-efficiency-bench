@@ -22,7 +22,7 @@
 - [과제 목록과 로드맵](docs/tasks.md)
 - [실행·평가 방법](docs/methodology.md)
 - [난이도 기준](docs/difficulty.md) · [L1~L4 규모](docs/levels.md)
-- [L3·L4 기술 스택](docs/stack.md)
+- [L3·L4 기술 스택](docs/stack.md) · [Docker·웹·Android 환경 준비](docs/preparation.md)
 - [측정 규칙](docs/metrics.md)
 - [실행 기록 양식](templates/run/report.md)
 - [기여 안내](CONTRIBUTING.md)

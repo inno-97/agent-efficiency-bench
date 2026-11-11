@@ -1,0 +1,1 @@
+export default function Page(){return <main className="mx-auto max-w-xl p-12"><h1 className="text-2xl font-bold">L3·L4 environment preparation</h1><p>Next.js · React · TypeScript · Tailwind</p><p>DB 확인: /api/health</p></main>;}

@@ -1,0 +1,20 @@
+name: agent-efficiency-preparation
+services:
+  db:
+    image: postgres:17-alpine@sha256:e5d2edd28b1f8d40a0a6c0c9cdc545b19b56a0d5d88f94bc11a97d970d4700d0
+    environment:
+      POSTGRES_USER: benchmark
+      POSTGRES_DB: benchmark
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run npm run env:init first}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-55432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U benchmark -d benchmark"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+volumes:
+  postgres-data:

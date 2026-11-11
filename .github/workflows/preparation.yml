@@ -1,0 +1,63 @@
+name: Verify L3 L4 environment
+on:
+  push:
+    branches: [main]
+    paths:
+      - preparation/**
+      - compose.yaml
+      - tools/*preparation*.mjs
+      - tools/environment*.mjs
+      - .github/workflows/preparation.yml
+  pull_request:
+    paths:
+      - preparation/**
+      - compose.yaml
+      - tools/*preparation*.mjs
+      - tools/environment*.mjs
+      - .github/workflows/preparation.yml
+permissions:
+  contents: read
+jobs:
+  preparation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: preparation/web/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: node tools/environment.mjs init
+      - run: node tools/environment.mjs up
+      - run: npm ci --prefix preparation/web
+      - run: npm --prefix preparation/web run db:generate
+      - run: npm --prefix preparation/web run db:push
+      - run: npm --prefix preparation/web test
+      - run: npm --prefix preparation/web run build
+      - name: Start production preparation server
+        run: |
+          npm --prefix preparation/web start > "$RUNNER_TEMP/preparation-web.log" 2>&1 &
+          node tools/web-preparation-check.mjs
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          emulator-port: 5554
+          disable-animations: true
+          script: node tools/android-preparation.mjs emulator-5554
+      - name: Stop preparation containers
+        if: always()
+        run: docker compose down
