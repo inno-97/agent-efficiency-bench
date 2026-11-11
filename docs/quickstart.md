@@ -100,3 +100,5 @@ npm run verify
 - 로컬 실행 권한/Chromium sandbox 오류: 평가 환경의 브라우저·로컬 소켓 실행 권한을 확인하세요.
 
 - Node 26에서 고정 Playwright 버전의 브라우저 압축 해제가 지연되면 `.nvmrc`의 Node 22로 설치하세요. 이 저장소의 지원·CI 런타임은 Node 22입니다.
+
+L3·L4는 스택·DB·기기 조건이 다르므로 [L3·L4 실행 가이드](advanced.md)를 따르세요.

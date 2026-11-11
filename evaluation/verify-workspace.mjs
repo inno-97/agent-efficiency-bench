@@ -9,7 +9,7 @@ try{for(const slug of ['l3-bookmark-library','l4-team-issue-board'])for(const ki
  const source='benchmarks/web/'+kind+'/'+slug,target=join(temp,kind+'-'+slug);
  await cp(source+'/starter',target,{recursive:true,filter:p=>!['node_modules','.next','.env'].includes(basename(p))});await copyFile(source+'/task.json',join(target,'task.json'));
  const baseline=await evaluateWorkspace(target);console.log(baseline.task,'baseline',baseline.passed+'/'+baseline.total);assert.ok(baseline.passed<baseline.total);
- if(kind==='fix')assert.ok(baseline.results.some(r=>!r.passed&&/isolation|removal|author-owner/.test(r.name)));
+ if(kind==='fix')assert.deepEqual(baseline.results.filter(r=>!r.passed).map(r=>r.name),slug.startsWith('l3')?['bookmark/isolation-direct','bookmark/isolation-edit','bookmark/isolation-delete']:['project/direct-isolation','issue/author-owner-edit','member/removal-revokes-existing-session']);
  await copyFile('evaluation/fixtures/reference-workspace.ts',join(target,'lib/service.ts'));
  const reference=await evaluateWorkspace(target);console.log(reference.task,'reference',reference.passed+'/'+reference.total);assert.equal(reference.passed,reference.total,JSON.stringify(reference.results.filter(r=>!r.passed)));
  reports.push({task:baseline.task,baseline,reference});

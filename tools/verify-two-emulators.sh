@@ -5,7 +5,7 @@ echo no | avdmanager create avd --force -n benchmark-peer -k 'system-images;andr
 "$ANDROID_HOME/emulator/emulator" -avd benchmark-peer -port 5556 -no-window -no-audio -no-snapshot -gpu swiftshader_indirect -memory 1536 -cores 2 > "$RUNNER_TEMP/peer-emulator.log" 2>&1 &
 peer_pid=$!
 trap 'adb -s emulator-5556 emu kill >/dev/null 2>&1 || true; kill "$peer_pid" 2>/dev/null || true' EXIT
-adb -s emulator-5556 wait-for-device
+timeout 120 adb -s emulator-5556 wait-for-device
 ready=0
 for attempt in $(seq 1 90); do
   if [ "$(adb -s emulator-5556 shell getprop sys.boot_completed | tr -d '\r')" = 1 ]; then ready=1; break; fi

@@ -4,7 +4,7 @@
   "domain": "mobile",
   "type": "build",
   "level": 4,
-  "status": "draft",
+  "status": "ready",
   "suite": "sync",
   "track": "kotlin-compose-room",
   "java": "17",

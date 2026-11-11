@@ -4,7 +4,7 @@
   "domain": "web",
   "type": "fix",
   "level": 3,
-  "status": "draft",
+  "status": "ready",
   "suite": "bookmarks",
   "track": "typescript-next-postgres",
   "node": "22.x",

@@ -15,7 +15,7 @@
 | ORM·마이그레이션 | Prisma |
 | 입력 검증 | Zod |
 | 인증 | seed 계정, 비밀번호 해시, 서버에 저장하는 불투명 세션·HttpOnly 쿠키 |
-| 평가 | Vitest(단위/통합), Playwright(브라우저), 직접 HTTP 인증·권한 검사 |
+| 평가 | 외부 Node assert 기반 HTTP/DB 통합 검사, Playwright 브라우저 검사 (Vitest는 환경 호환 확인 도구) |
 | 로컬 환경 | Node 22 기준으로 호환 버전 선정, PostgreSQL은 Docker Compose |
 
 프런트와 API를 별도 서비스로 나누지 않는다. 공개 클라우드·유료 API·관리형 DB는 요구하지 않는다. DB 설치·마이그레이션·seed는 측정 전에 준비한다. 과제별 DB 초기화와 서버 재시작 후 보존을 검증한다.
@@ -43,9 +43,9 @@ Photo Picker는 광범위한 사진 라이브러리 권한을 요구하지 않�
 
 TypeScript + Next.js Route Handlers + Prisma + PostgreSQL을 사용한다. 웹 과제와 기술 생태계를 맞추되 별도 과제의 코드·DB·평가 환경을 사용한다.
 
-서버·DB 기동 scaffolding과 seed는 제공하고 동기화 규칙·요청 식별자·버전 충돌·삭제 및 재시도 계약은 구현 전 명세에서 고정한다. 외부 클라우드 없이 에뮬레이터 두 대와 로컬 서버로 평가한다.
+서버·DB 기동 scaffolding과 seed는 제공하고 동기화는 서버 우선 충돌·operationId 중복 방지·삭제 tombstone·실패 재시도 계약으로 고정했다. 외부 클라우드 없이 에뮬레이터 두 대와 로컬 서버로 평가한다.
 
-설치·빌드 호환성을 확인한 기준 조합은 [환경 준비](preparation.md)에 기록합니다. 실제 과제는 아직 구현 전입니다.
+설치·빌드 호환성을 확인한 기준 조합은 [환경 준비](preparation.md)에 기록합니다. 실행 가능한 과제와 독립 평가 방법은 [L3·L4 가이드](advanced.md)에 기록합니다.
 
 ## 버전과 비교 정책
 
@@ -54,7 +54,7 @@ TypeScript + Next.js Route Handlers + Prisma + PostgreSQL을 사용한다. 웹 �
 - L1·L2의 JavaScript 및 Java/Views 과제는 기존 재현성을 위해 유지한다.
 - L3·L4는 언어·프레임워크도 달라지므로 레벨 간 토큰 차이를 순수 난이도 효과로 해석하지 않는다. 기본 비교는 동일 과제·버전·트랙의 에이전트 실행끼리 한다.
 - 같은 기능 과제의 여러 스택 비교 구조는 [장기 이슈 #1](https://github.com/inno-97/agent-efficiency-bench/issues/1)에서 다룬다.
-- L3·L4는 스택만 확정됐고 아직 planned이며 실행 가능한 과제는 아니다.
+- L3·L4는 각 도메인 build/fix v1.0.0 ready이며 실제 에이전트 측정은 아직 수행하지 않았다.
 
 ## 선택 근거
 

@@ -4,7 +4,7 @@
   "domain": "mobile",
   "type": "fix",
   "level": 3,
-  "status": "draft",
+  "status": "ready",
   "suite": "notes",
   "track": "kotlin-compose-room",
   "java": "17",

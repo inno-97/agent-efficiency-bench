@@ -87,3 +87,5 @@ npm run verify:android -- emulator-5580
 - `offline`/부팅 중: `adb -s <serial> shell getprop sys.boot_completed`가 1이 될 때까지 기다립니다.
 - 설치 서명 충돌: 테스트용 AVD에서 기존 bench.app 및 bench.app.test를 제거한 뒤 재실행합니다.
 - 처음 실행만 느림: Gradle·AGP·SDK 준비와 앱 빌드를 측정 전에 완료하고 캐시 조건을 모든 실행에 맞춥니다.
+
+L3·L4는 스택·DB·기기 조건이 다르므로 [L3·L4 실행 가이드](advanced.md)를 따르세요.

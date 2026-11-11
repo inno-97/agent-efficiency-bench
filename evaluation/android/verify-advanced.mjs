@@ -13,6 +13,7 @@ try{for(const [slug,suite] of [['l3-offline-notes','notes'],['l4-synced-checklis
  const source='benchmarks/mobile/'+kind+'/'+slug,target=join(temp,kind+'-'+slug);
  await cp(source+'/starter',target,{recursive:true,filter:p=>!['.gradle','build','local.properties'].includes(basename(p))});await copyFile(source+'/task.json',join(target,'task.json'));
  const baseline=await evaluateAdvanced(target,serial);console.log(baseline.task,'baseline',baseline.passed+'/'+baseline.total);assert.ok(baseline.passed<baseline.total);
+ if(kind==='fix')assert.deepEqual(baseline.results.filter(r=>!r.passed).map(r=>r.name),suite==='notes'?['notes/validation-atomic','photo/edit-preserves-attachment','photo/remove-persists-cleans']:['offline/crud-validation','sync/conflict-server-wins','sync/delete-tombstone-propagates','sync/stale-edit-cannot-resurrect']);
  await copyFile('evaluation/fixtures/reference-'+suite+'.kt',join(target,'app/src/main/java/bench/app/Repository.kt'));
  const reference=await evaluateAdvanced(target,serial);console.log(reference.task,'reference',reference.passed+'/'+reference.total);assert.equal(reference.passed,reference.total,JSON.stringify(reference.results.filter(r=>!r.passed)));
  reports.push({task:baseline.task,baseline,reference});

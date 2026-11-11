@@ -1,0 +1,205 @@
+{
+  "kind": "evaluator-self-validation",
+  "date": "2026-11-12",
+  "environment": "macOS arm64 / Node22.23.4 / PostgreSQL17 Docker / JDK17 / Android API35 arm64, two emulators",
+  "agentPerformanceMeasurement": false,
+  "tasks": [
+    {
+      "task": "web-build-l3-bookmark-library",
+      "version": "1.0.0",
+      "baseline": {
+        "passed": 0,
+        "total": 19,
+        "failedChecks": [
+          "auth/invalid-password",
+          "auth/unauthenticated",
+          "auth/session-cookie",
+          "auth/forged-cookie",
+          "auth/cross-origin",
+          "bookmark/create-server-owner",
+          "bookmark/validation",
+          "bookmark/isolation-list",
+          "bookmark/isolation-direct",
+          "bookmark/isolation-edit",
+          "bookmark/isolation-delete",
+          "bookmark/edit",
+          "bookmark/search-tag-pagination",
+          "bookmark/restart-persistence",
+          "bookmark/delete",
+          "ui/create-edit-reload-delete",
+          "ui/validation-and-safe-text",
+          "auth/logout-revokes",
+          "auth/expired-session"
+        ]
+      },
+      "reference": {
+        "passed": 19,
+        "total": 19
+      }
+    },
+    {
+      "task": "web-fix-l3-bookmark-library",
+      "version": "1.0.0",
+      "baseline": {
+        "passed": 16,
+        "total": 19,
+        "failedChecks": [
+          "bookmark/isolation-direct",
+          "bookmark/isolation-edit",
+          "bookmark/isolation-delete"
+        ]
+      },
+      "reference": {
+        "passed": 19,
+        "total": 19
+      }
+    },
+    {
+      "task": "web-build-l4-team-issue-board",
+      "version": "1.0.0",
+      "baseline": {
+        "passed": 0,
+        "total": 22,
+        "failedChecks": [
+          "auth/invalid-password",
+          "auth/unauthenticated",
+          "auth/session-cookie",
+          "auth/forged-cookie",
+          "auth/cross-origin",
+          "project/list-isolation",
+          "project/direct-isolation",
+          "issue/create-author",
+          "issue/validation",
+          "issue/cross-project-id",
+          "issue/member-read",
+          "member/owner-only",
+          "issue/author-owner-edit",
+          "comment/author-and-relations",
+          "member/removal-revokes-existing-session",
+          "member/cannot-remove-owner",
+          "issue/restart-persistence",
+          "issue/delete-cascades-comments",
+          "ui/create-edit-reload-delete",
+          "ui/validation-and-safe-text",
+          "auth/logout-revokes",
+          "auth/expired-session"
+        ]
+      },
+      "reference": {
+        "passed": 22,
+        "total": 22
+      }
+    },
+    {
+      "task": "web-fix-l4-team-issue-board",
+      "version": "1.0.0",
+      "baseline": {
+        "passed": 19,
+        "total": 22,
+        "failedChecks": [
+          "project/direct-isolation",
+          "issue/author-owner-edit",
+          "member/removal-revokes-existing-session"
+        ]
+      },
+      "reference": {
+        "passed": 22,
+        "total": 22
+      }
+    },
+    {
+      "task": "mobile-build-l3-offline-notes",
+      "version": "1.0.0",
+      "baseline": {
+        "passed": 0,
+        "total": 17,
+        "failedChecks": [
+          "notes/crud-stable-id",
+          "notes/validation-atomic",
+          "notes/search-tag-combined",
+          "notes/room-reopen",
+          "photo/copy-retains-bytes",
+          "photo/cancel-preserves",
+          "photo/edit-preserves-attachment",
+          "photo/replace-cleans-old",
+          "photo/failure-atomic",
+          "photo/empty-oversize",
+          "photo/remove-persists-cleans",
+          "photo/delete-cleans",
+          "ui/create-edit-recreate",
+          "ui/search",
+          "ui/picker-cancel",
+          "ui/delete",
+          "process/restart-persistence"
+        ]
+      },
+      "reference": {
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "task": "mobile-fix-l3-offline-notes",
+      "version": "1.0.0",
+      "baseline": {
+        "passed": 14,
+        "total": 17,
+        "failedChecks": [
+          "notes/validation-atomic",
+          "photo/edit-preserves-attachment",
+          "photo/remove-persists-cleans"
+        ]
+      },
+      "reference": {
+        "passed": 17,
+        "total": 17
+      }
+    },
+    {
+      "task": "mobile-build-l4-synced-checklist",
+      "version": "1.0.0",
+      "baseline": {
+        "passed": 1,
+        "total": 15,
+        "failedChecks": [
+          "offline/crud-validation",
+          "sync/create-ack-version",
+          "sync/two-client-pull-update",
+          "sync/conflict-server-wins",
+          "sync/delete-tombstone-propagates",
+          "sync/stale-edit-cannot-resurrect",
+          "sync/network-failure-preserves-queue",
+          "sync/response-loss-replay-idempotent",
+          "sync/account-isolation",
+          "ui/login-create-edit",
+          "ui/manual-sync-recreate",
+          "ui/delete",
+          "process/restart-persistence",
+          "sync/two-emulator-propagation"
+        ]
+      },
+      "reference": {
+        "passed": 15,
+        "total": 15
+      }
+    },
+    {
+      "task": "mobile-fix-l4-synced-checklist",
+      "version": "1.0.0",
+      "baseline": {
+        "passed": 11,
+        "total": 15,
+        "failedChecks": [
+          "offline/crud-validation",
+          "sync/conflict-server-wins",
+          "sync/delete-tombstone-propagates",
+          "sync/stale-edit-cannot-resurrect"
+        ]
+      },
+      "reference": {
+        "passed": 15,
+        "total": 15
+      }
+    }
+  ]
+}

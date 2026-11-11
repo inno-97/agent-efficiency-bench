@@ -32,6 +32,7 @@ export async function evaluateAdvanced(candidate,serial){
  peerDevice('install','-r','-t',join(build,'app/build/outputs/apk/debug/app-debug.apk'));peerDevice('install','-r','-t',join(build,'app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'));peerDevice('shell','am','force-stop','bench.app');peerDevice('shell','pm','clear','bench.app');
  const seed=phase('cross-seed'),remote=phase('cross-peer',peerDevice),verify=phase('cross-verify');const cross={name:'sync/two-emulator-propagation',passed:[seed,remote,verify].every(r=>r.passed===r.total)};if(!cross.passed)cross.error=JSON.stringify({seed,remote,verify});report.results.push(cross);report.total++;if(cross.passed)report.passed++;
  }
- return {task:meta.id,version:meta.version,candidate:root,platform:'android',api:35,serial,...report};
+ if(report.total!==(meta.suite==='notes'?17:15)||report.results.length!==report.total||new Set(report.results.map(r=>r.name)).size!==report.total)throw Error('Invalid evaluator report');
+ return {task:meta.id,version:meta.version,candidate:root,platform:'android',api:35,serial,...(peer&&meta.suite==='sync'?{peerSerial:peer}:{}),...report};
  }finally{await rm(temp,{recursive:true,force:true})}
 }
