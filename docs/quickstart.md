@@ -14,7 +14,7 @@ npm ci
 npx playwright install chromium --only-shell
 ```
 
-Linux에서 시스템 라이브러리가 부족하면 `npx playwright install --with-deps chromium --only-shell`을 사용합니다. 설치에는 네트워크가 필요하지만 Todo 실행과 평가는 로컬에서 진행됩니다. OS·Node·브라우저 버전을 결과에 기록하세요.
+Linux는 Ubuntu 24.04를 기준으로 합니다. 시스템 라이브러리가 부족하면 `npx playwright install --with-deps chromium --only-shell`을 사용합니다. 설치에는 네트워크가 필요하지만 Todo 실행과 평가는 로컬에서 진행됩니다. OS·Node·브라우저 버전을 결과에 기록하세요.
 
 ## 2. 독립 작업 폴더 만들기
 
